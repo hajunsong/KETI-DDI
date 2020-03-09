@@ -361,7 +361,7 @@ if __name__ == '__main__':
 
         # grip 성공 여부 확인
         grip_success = m_robot_master.gripper.grip_get_success()
-
+        print 'grip : {0}'.format(grip_success)
         if grip_success is True:
             # place 위치로 이동
             print 'place 위치로 이동'

@@ -73,16 +73,25 @@ class Robot_Slave_m1013(Parent_Robot):
         self.robot_state['pos']= [msg.current_posx[0], msg.current_posx[1], msg.current_posx[2], msg.current_posx[3], msg.current_posx[4], msg.current_posx[5]]
         self.robot_state['speed'] = abs(msg.current_velx[0]) + abs(msg.current_velx[1]) + abs(msg.current_velx[2]) + abs(msg.current_velx[3]) + abs(msg.current_velx[4]) + abs(msg.current_velx[5])
 
+        robot_state_dynamic_torque = msg.dynamic_tor
+        robot_state_joint_torque = msg.actual_jts
+        robot_state_external_joint_torque = msg.actual_ejt
+        robot_state_external_tool_torque = msg.actual_ett
+
         self.robot_state_num = msg.robot_state
         self.robot_state_str = msg.robot_state_str
         # print(self.speed)
 
         self.cnt += 1
-        if (self.cnt % 500) == 0:
+        if (self.cnt % 10) == 0:
             print '\n========================= Robot State ======================'
             print 'Robot State : {0}'.format(self.robot_state_str)
             print 'Current Joint : {0}'.format(self.robot_state['joint'])
             print 'Current Pose : {0}'.format(self.robot_state['pos'])
+            print 'Current Dynamic Torque : {0}'.format(robot_state_dynamic_torque)
+            print 'Current Joint Torque : {0}'.format(robot_state_joint_torque)
+            print 'Current External Joint Torque : {0}'.format(robot_state_external_joint_torque)
+            print 'Current External Tool Torque : {0}'.format(robot_state_external_tool_torque)
             print '============================================================\n'
 
         # if self.robot_state['pos'] < 180:

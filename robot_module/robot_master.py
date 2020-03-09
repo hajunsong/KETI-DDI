@@ -248,8 +248,18 @@ def getKey():
     return key
 
 if __name__ == '__main__':
-    # m_robot_master = robot_master(robot_name='a0509')
-    m_robot_master = robot_master(robot_name=['m1013'], gripper_name=['zimmer_gripper'])
+    m_robot_master = robot_master(robot_name='m1013')
+
+    p1= [0,0,0,0,0,0]                    #joint
+    p2= [0.0, 0.0, 90.0, 0.0, 90.0, 0.0] #joint
+
+    while True:
+        m_robot_master.move_joint_robot(p1, time=2, syncType=1)
+        m_robot_master.move_joint_robot(p2, time=2, syncType=1)
+    print 'good bye!'
+
+
+    # m_robot_master = robot_master(robot_name=['m1013'], gripper_name=['zimmer_gripper'])
     print m_robot_master.gripper
     m_robot_master.gripper.init()
 

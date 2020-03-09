@@ -370,7 +370,7 @@ if __name__ == '__main__':
         m_robot_master.move_pos_robot(pose_goal, vel=[80,160], acc=[40,100], syncType = 1)
 
 
-        os.remove(glob.glob('/home/keti/DDI/target_*.txt')[0])
+        # os.remove(glob.glob('/home/keti/DDI/target_*.txt')[0])
 
     # m_robot_master.move_joint_robot([185.36,3.16,-125.24,180.27,60.8,0.48], vel=50, acc=10, syncType = 1)
     #

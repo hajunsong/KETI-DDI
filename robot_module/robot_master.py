@@ -248,19 +248,18 @@ def getKey():
     return key
 
 if __name__ == '__main__':
-    m_robot_master = robot_master(robot_name='m1013')
+    # m_robot_master = robot_master(robot_name='m1013')
 
-    p1= [0,0,0,0,0,0]                    #joint
-    p2= [0.0, 0.0, 90.0, 0.0, 90.0, 0.0] #joint
+    # p1= [0,0,0,0,0,0]                    #joint
+    # p2= [0.0, 0.0, 90.0, 0.0, 90.0, 0.0] #joint
 
-    while True:
-        m_robot_master.move_joint_robot(p1, time=2, syncType=1)
-        m_robot_master.move_joint_robot(p2, time=2, syncType=1)
-    print 'good bye!'
+    # while True:
+    #     m_robot_master.move_joint_robot(p1, time=2, syncType=1)
+    #     m_robot_master.move_joint_robot(p2, time=2, syncType=1)
+    # print 'good bye!'
 
 
-    # m_robot_master = robot_master(robot_name=['m1013'], gripper_name=['zimmer_gripper'])
-    print m_robot_master.gripper
+    m_robot_master = robot_master(robot_name='m1013', gripper_name='zimmer_gripper')
     m_robot_master.gripper.init()
 
     joint_init = [186.602, 22.409, -129.488, 180.0, 72.921, 6.602]
@@ -360,15 +359,19 @@ if __name__ == '__main__':
         m_robot_master.gripper.grip_release()
         m_robot_master.gripper.grip()
 
-        # place 위치로 이동
-        print 'place 위치로 이동'
-        pose_place_1 = [target[0], target[1], target[2] + 100, target[3]/2, rot_y, -target[3]/2]
-        pose_place_2 = [542, 286, 373, target[3]/2, rot_y, -target[3]/2]
-        pose_place_3 = [pose_end[0], pose_end[1], pose_end[2] + 100, target[3]/2, rot_y, -target[3]/2]
-        pose_place_list = [pose_target_near, pose_place_1, pose_place_2, pose_place_3]
-        m_robot_master.move_pos_queue(pose_place_list, syncType=1, time=time_place)
+        # grip 성공 여부 확인
+        grip_success = m_robot_master.gripper.grip_get_success()
 
-        m_robot_master.gripper.grip_release()
+        if grip_success is True:
+            # place 위치로 이동
+            print 'place 위치로 이동'
+            pose_place_1 = [target[0], target[1], target[2] + 100, target[3]/2, rot_y, -target[3]/2]
+            pose_place_2 = [542, 286, 373, target[3]/2, rot_y, -target[3]/2]
+            pose_place_3 = [pose_end[0], pose_end[1], pose_end[2] + 100, target[3]/2, rot_y, -target[3]/2]
+            pose_place_list = [pose_target_near, pose_place_1, pose_place_2, pose_place_3]
+            m_robot_master.move_pos_queue(pose_place_list, syncType=1, time=time_place)
+
+            m_robot_master.gripper.grip_release()
 
         #############################
         # 통신이 적용되면 변경 될 부분

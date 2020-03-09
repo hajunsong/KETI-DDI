@@ -223,7 +223,10 @@ class KetiZimmer():
         return self.grip_distance
 
     def grip_get_success(self):
-        return self.status
+        if self.grip_distance >= 4000:
+            return False
+        else:
+            return True
 
 if __name__ == '__main__':
     gripper = KetiZimmer()
